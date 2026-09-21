@@ -296,7 +296,7 @@ with tab_identify:
                 st.image(
                     annotated_rgb,
                     caption=f"Inference Latency: {proc_time_ms:.1f} ms | Detected Faces: {output.num_faces}",
-                    width="stretch"
+                    use_container_width=True
                 )
 
             with res_right:
@@ -313,7 +313,7 @@ with tab_identify:
                             with crop_col:
                                 crop = pipeline.detector.extract_face_crop(image, det)
                                 if crop.size > 0:
-                                    st.image(cv2.cvtColor(crop, cv2.COLOR_BGR2RGB), width="stretch")
+                                    st.image(cv2.cvtColor(crop, cv2.COLOR_BGR2RGB), use_container_width=True)
                             with metrics_col:
                                 if match.is_known:
                                     st.success(f"Identified: {match.name}")
@@ -365,7 +365,7 @@ with tab_live:
                 st.image(
                     cv2.cvtColor(output.annotated_image, cv2.COLOR_BGR2RGB),
                     caption=f"Latency: {dt:.1f} ms | Detected Faces: {output.num_faces}",
-                    width="stretch"
+                    use_container_width=True
                 )
 
                 for match in output.matches:
@@ -525,9 +525,9 @@ with tab_eval:
     if roc_img.exists() and thresh_img.exists():
         pcol1, pcol2 = st.columns(2, gap="large")
         with pcol1:
-            st.image(str(roc_img), caption="Receiver Operating Characteristic (ROC)", width="stretch")
+            st.image(str(roc_img), caption="Receiver Operating Characteristic (ROC)", use_container_width=True)
         with pcol2:
-            st.image(str(thresh_img), caption="FAR vs FRR Operating Point Curve", width="stretch")
+            st.image(str(thresh_img), caption="FAR vs FRR Operating Point Curve", use_container_width=True)
 
         if cm_img.exists():
             st.image(str(cm_img), caption="Confusion Matrix at Operating Threshold", width=540)
